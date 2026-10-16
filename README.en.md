@@ -140,12 +140,6 @@ install.sh                installation from the repository
 tools/build-installer.sh  builds dist/install-xionreseller-whmcs.sh (a single file with everything)
 ```
 
-## Publishing a new version
-
-1. Change the version in `lib/Client.php` (`const VERSION`) and at the top of the READMEs, and add to `CHANGELOG.md`.
-2. Upload and create a release: on GitHub under **Releases → Draft a new release**, enter a new tag such as `v1.0.1` and publish (with Git: `git tag v1.0.1 && git push --tags`).
-3. GitHub Actions checks all PHP files (PHP 7.4, 8.1, 8.3), builds the installer, installs it once as a test and attaches it to the release.
-
 ## License
 
 MIT, see [LICENSE](LICENSE). You may use, change and share the module, including the templates under `templates/` for your own design. The copyright notice must be kept.
