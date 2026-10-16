@@ -1,0 +1,4 @@
+# Unix-Zeilenenden für alles: Skripte mit Windows-Zeilenenden (CRLF) laufen auf dem Server nicht.
+* text=auto eol=lf
+*.png binary
+*.jpg binary

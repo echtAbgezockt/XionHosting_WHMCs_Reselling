@@ -1,0 +1,57 @@
+name: Prüfen und Release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['7.4', '8.1', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: none
+      - name: PHP-Syntax
+        run: find modules -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Shell-Skripte
+        run: shellcheck -S warning install.sh tools/build-installer.sh
+
+  installer:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Installationsskript bauen
+        run: bash tools/build-installer.sh
+      - name: Probeinstallation in ein nachgebautes WHMCS
+        run: |
+          mkdir -p /tmp/whmcs/modules/servers
+          touch /tmp/whmcs/configuration.php
+          XR_BACKUP_DIR=/tmp/sicherung bash dist/install-xionreseller-whmcs.sh /tmp/whmcs
+          test -f /tmp/whmcs/modules/servers/xionreseller/xionreseller.php
+          test -f /tmp/whmcs/modules/servers/xionreseller/LICENSE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: install-xionreseller-whmcs
+          path: dist/install-xionreseller-whmcs.sh
+      - name: Release (nur bei einem Tag wie v1.0.0)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # Wurde das Release auf der Webseite angelegt, gibt es das Release schon: dann nur die Datei anhaengen.
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" dist/install-xionreseller-whmcs.sh --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" dist/install-xionreseller-whmcs.sh --title "$GITHUB_REF_NAME" --notes-file CHANGELOG.md
+          fi

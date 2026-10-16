@@ -1,0 +1,6 @@
+# gebautes Installationsskript (kommt als Release-Datei auf GitHub, nicht ins Repository)
+dist/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
