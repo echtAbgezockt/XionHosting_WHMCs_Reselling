@@ -15,15 +15,15 @@ Mit dem Modul verkaufst du KVM-Server aus deinem XionHosting-Reseller-Konto übe
 **Mit dem Installationsskript** (eine Datei, enthält alles):
 
 ```bash
-curl -fsSLo install-xionreseller-whmcs.sh https://github.com/DEIN-GITHUB-NAME/xionreseller-whmcs/releases/latest/download/install-xionreseller-whmcs.sh
+curl -fsSLo install-xionreseller-whmcs.sh https://github.com/echtAbgezockt/XionHosting_WHMCs_Reselling/releases/latest/download/install-xionreseller-whmcs.sh
 sudo bash install-xionreseller-whmcs.sh /var/www/whmcs
 ```
 
 **Aus dem Repository:**
 
 ```bash
-git clone https://github.com/DEIN-GITHUB-NAME/xionreseller-whmcs.git
-cd xionreseller-whmcs
+git clone https://github.com/echtAbgezockt/XionHosting_WHMCs_Reselling.git
+cd XionHosting_WHMCs_Reselling
 sudo bash install.sh /var/www/whmcs
 ```
 

@@ -2,8 +2,8 @@
 # shellcheck disable=SC1111  # deutsche Anführungszeichen „…“ im Text sind gewollt
 # Installiert das WHMCS-Modul „XionHosting Reseller (KVM)“ aus diesem Ordner.
 #
-#   git clone https://github.com/<konto>/xionreseller-whmcs.git
-#   cd xionreseller-whmcs
+#   git clone https://github.com/echtAbgezockt/XionHosting_WHMCs_Reselling.git
+#   cd XionHosting_WHMCs_Reselling
 #   sudo bash install.sh /pfad/zu/whmcs     (ohne Pfad sucht das Skript an den üblichen Stellen)
 #
 # Das Skript kopiert nur modules/servers/xionreseller nach WHMCS. Es ändert keine Einstellungen und keine
